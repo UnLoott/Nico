@@ -1,6 +1,6 @@
 if _G.primas then
     pcall(function()
-        if _G._417_window then _G._417_window:Destroy() end
+        if _G._Rudolph_window then _G._Rudolph_window:Destroy() end
     end)
     _G.primas = nil
 end
@@ -41,7 +41,7 @@ local config = {
     optim = { headless = false, korblox = false, noRender = false },
 }
 
-local CONFIG_FILE = "417_config.json"
+local CONFIG_FILE = "Rudolph_config.json"
 local _loadingConfig = true
 
 local function SaveConfig()
@@ -201,7 +201,7 @@ if not Fluent then
 end
 
 local Window = Fluent:CreateWindow({
-    Title = "417",
+    Title = "Rudolph",
     SubTitle = "",
     TabWidth = 100,
     Size = UDim2.fromOffset(440, 315),
@@ -209,17 +209,17 @@ local Window = Fluent:CreateWindow({
     Theme = "Darker",
     MinimizeKey = nil,
 })
-_G._417_window = Window
+_G._Rudolph_window = Window
 
-local Close417Gui = Instance.new("ScreenGui")
-Close417Gui.Name = "417_close"
-Close417Gui.ResetOnSpawn = false
-Close417Gui.IgnoreGuiInset = true
-Close417Gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+local CloseRudolphGui = Instance.new("ScreenGui")
+CloseRudolphGui.Name = "Rudolph_close"
+CloseRudolphGui.ResetOnSpawn = false
+CloseRudolphGui.IgnoreGuiInset = true
+CloseRudolphGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 
-local coreGui417 = game:FindFirstChild("CoreGui")
-if coreGui417 then pcall(function() Close417Gui.Parent = coreGui417 end) end
-if not Close417Gui.Parent then Close417Gui.Parent = LocalPlayer:WaitForChild("PlayerGui") end
+local coreGuiRudolph = game:FindFirstChild("CoreGui")
+if coreGuiRudolph then pcall(function() CloseRudolphGui.Parent = coreGuiRudolph end) end
+if not CloseRudolphGui.Parent then CloseRudolphGui.Parent = LocalPlayer:WaitForChild("PlayerGui") end
 
 local toggleui = Instance.new("TextButton")
 toggleui.Name = "toggleui"
@@ -231,7 +231,7 @@ toggleui.BorderSizePixel = 0
 toggleui.AnchorPoint = Vector2.new(0, 1)
 toggleui.Text = ""
 toggleui.AutoButtonColor = false
-toggleui.Parent = Close417Gui
+toggleui.Parent = CloseRudolphGui
 Instance.new("UICorner", toggleui).CornerRadius = UDim.new(0, 10)
 
 local UIStroke2 = Instance.new("UIStroke", toggleui)
@@ -247,7 +247,7 @@ toggleuititle.Size = UDim2.new(1, 0, 1, 0)
 toggleuititle.AnchorPoint = Vector2.new(0.5, 0.5)
 toggleuititle.Position = UDim2.new(0.5, 0, 0.5, 0)
 toggleuititle.BackgroundTransparency = 1
-toggleuititle.Text = "417"
+toggleuititle.Text = "Rudolph"
 toggleuititle.TextColor3 = Color3.fromRGB(255, 140, 0)
 toggleuititle.TextSize = 20
 toggleuititle.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.ExtraBold, Enum.FontStyle.Normal)
@@ -255,37 +255,37 @@ toggleuititle.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", En
 toggleui.MouseEnter:Connect(function() TweenService:Create(UIStroke2, TweenInfo.new(0.2), {Thickness = 3.5}):Play() end)
 toggleui.MouseLeave:Connect(function() TweenService:Create(UIStroke2, TweenInfo.new(0.2), {Thickness = 2.5}):Play() end)
 
-local dragging417, dragInput417, dragStart417, startPos417 = false, nil, nil, nil
-local didDrag417 = false
+local draggingRudolph, dragInputRudolph, dragStartRudolph, startPosRudolph = false, nil, nil, nil
+local didDragRudolph = false
 toggleui.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging417 = true
-        didDrag417 = false
-        dragStart417 = input.Position
-        startPos417 = toggleui.Position
+        draggingRudolph = true
+        didDragRudolph = false
+        dragStartRudolph = input.Position
+        startPosRudolph = toggleui.Position
         input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then dragging417 = false end
+            if input.UserInputState == Enum.UserInputState.End then draggingRudolph = false end
         end)
     end
 end)
 toggleui.InputChanged:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-        dragInput417 = input
+        dragInputRudolph = input
     end
 end)
 UserInputService.InputChanged:Connect(function(input)
-    if input == dragInput417 and dragging417 then
-        local delta = input.Position - dragStart417
-        if delta.Magnitude > 10 then didDrag417 = true end
+    if input == dragInputRudolph and draggingRudolph then
+        local delta = input.Position - dragStartRudolph
+        if delta.Magnitude > 10 then didDragRudolph = true end
         toggleui.Position = UDim2.new(
-            startPos417.X.Scale, startPos417.X.Offset + delta.X,
-            startPos417.Y.Scale, startPos417.Y.Offset + delta.Y
+            startPosRudolph.X.Scale, startPosRudolph.X.Offset + delta.X,
+            startPosRudolph.Y.Scale, startPosRudolph.Y.Offset + delta.Y
         )
     end
 end)
 toggleui.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        if not didDrag417 then Window:Minimize() end
+        if not didDragRudolph then Window:Minimize() end
     end
 end)
 
@@ -705,7 +705,7 @@ local DARK_GREY = Color3.fromRGB(30, 30, 30)
 local WHITE = Color3.fromRGB(255, 255, 255)
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "417_spam_btn"
+ScreenGui.Name = "Rudolph_spam_btn"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.IgnoreGuiInset = true
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
@@ -845,7 +845,7 @@ local function GetBallSpeed()
 end
 
 local SpeedGui = Instance.new("ScreenGui")
-SpeedGui.Name = "417_ball_speed"
+SpeedGui.Name = "Rudolph_ball_speed"
 SpeedGui.ResetOnSpawn = false
 SpeedGui.IgnoreGuiInset = true
 SpeedGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
@@ -1024,12 +1024,12 @@ do
     end)
     if ok and result then
         sendParry = result
-        print("[417] ByteLatest remote pipeline OK")
+        print("[Rudolph] ByteLatest remote pipeline OK")
     end
 end
 
 if not sendParry then
-    print("[417] ByteLatest failed, using Angeli fallback")
+    print("[Rudolph] ByteLatest failed, using Angeli fallback")
     local replicated_storage = ReplicatedStorage
     local _token
     if getgc and debug and debug.info and debug.getupvalues then
@@ -1107,7 +1107,7 @@ end
 
 if not sendParry then
     sendParry = function() return false end
-    warn("[417] no remote pipeline - parry disabled")
+    warn("[Rudolph] no remote pipeline - parry disabled")
 end
 
 local function linear_predict(a, b, t)
@@ -1487,12 +1487,12 @@ local function ApplyAvatar(character, userId)
     if not character or not userId then return end
     local humanoid = character:FindFirstChildOfClass("Humanoid")
     if not humanoid then return end
-    if character:GetAttribute("_417Applied") == userId then return end
-    character:SetAttribute("_417Applied", userId)
+    if character:GetAttribute("_RudolphApplied") == userId then return end
+    character:SetAttribute("_RudolphApplied", userId)
     local ok, desc = pcall(function() return Players:GetHumanoidDescriptionFromUserId(userId) end)
-    if not ok or not desc then character:SetAttribute("_417Applied", nil) return end
+    if not ok or not desc then character:SetAttribute("_RudolphApplied", nil) return end
     local ok2, model = pcall(function() return Players:CreateHumanoidModelFromDescription(desc, humanoid.RigType) end)
-    if not ok2 or not model then character:SetAttribute("_417Applied", nil) return end
+    if not ok2 or not model then character:SetAttribute("_RudolphApplied", nil) return end
     for _, child in ipairs(character:GetChildren()) do
         if child:IsA("Accessory") or child:IsA("Shirt") or child:IsA("Pants") or child:IsA("ShirtGraphic") or child:IsA("BodyColors") or child:IsA("CharacterMesh") then
             child:Destroy()
@@ -1548,7 +1548,7 @@ local function ApplyAvatar(character, userId)
 end
 
 local function EnableAvatarSpoofer(userId)
-    if not userId then warn("[417] Avatar: no userId") return end
+    if not userId then warn("[Rudolph] Avatar: no userId") return end
     AvatarSpooferState.userId = userId
     local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
     ApplyAvatar(char, userId)
@@ -1584,7 +1584,7 @@ local function DisableAvatarSpoofer()
     if wasEnabled then
         local char = LocalPlayer.Character
         if char then
-            char:SetAttribute("_417Applied", nil)
+            char:SetAttribute("_RudolphApplied", nil)
             task.spawn(function()
                 task.wait(0.1)
                 if LocalPlayer.Character then
@@ -1643,7 +1643,7 @@ local function CreateAbilityBillboard(player, character)
         AbilityESP.billboards[player].gui:Destroy()
     end
     local bb = Instance.new("BillboardGui")
-    bb.Name = "417_AbilityESP"
+    bb.Name = "Rudolph_AbilityESP"
     bb.Adornee = head
     bb.Size = UDim2.new(0, 320, 0, 26)
     bb.StudsOffset = Vector3.new(0, 3, 0)
@@ -1931,7 +1931,7 @@ VisualsTab:AddToggle("AvatarSpoofer", {
                     EnableAvatarSpoofer(id)
                 end
             else
-                Fluent:Notify({ Title = "417", Content = "Enter avatar id/name first", Duration = 5 })
+                Fluent:Notify({ Title = "Rudolph", Content = "Enter avatar id/name first", Duration = 5 })
             end
         else
             DisableAvatarSpoofer()
@@ -2067,7 +2067,7 @@ StatusBtn.MouseButton1Click:Connect(ToggleSpam)
 
 task.spawn(function()
     task.wait(2)
-    Fluent:Notify({ Title = "417", Content = "Ready", Duration = 10 })
+    Fluent:Notify({ Title = "Rudolph", Content = "Ready", Duration = 10 })
 end)
 
 Window:SelectTab("main")
